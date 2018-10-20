@@ -85,13 +85,31 @@ public class MeetingProbabilitySet {
 			return;
 		}
 
+//		double oldValue = getProbFor(index);
 		double newValue = getProbFor(index) + alpha;
+//		double newValue = Math.sqrt(oldValue);
 		probs.put(index, newValue);
+
+//		Squaring all the values
+//		double temp1 = 0;
+//		for(Map.Entry<Integer, Double> entry: probs.entrySet()){
+//			entry.setValue(Math.pow(entry.getValue(),2));
+//			temp1 += entry.getValue();
+//		}
+
+//		Softmax function denominator
+//		double softmaxDenominator = 0;
+//		for(Map.Entry<Integer, Double> entry: probs.entrySet()){
+//			softmaxDenominator += Math.exp(entry.getValue());
+//		}
 
 		/* now the sum of all entries is 1+alpha;
 		 * normalize to one by dividing all the entries by 1+alpha */
 		for (Map.Entry<Integer, Double> entry : probs.entrySet()) {
-			entry.setValue(entry.getValue() / (1+alpha));
+//			entry.setValue(entry.getValue() / temp1);						//Squaring
+//			entry.setValue(entry.getValue() / (1+newValue-oldValue));		//Square Root
+			entry.setValue(entry.getValue() / (1+alpha)); 					//ORIGINAL
+//			entry.setValue(Math.exp(entry.getValue())/softmaxDenominator);	//Softmax
             if (entry.getValue() < smallestValue) {
                 smallestEntry = entry;
                 smallestValue = entry.getValue();
